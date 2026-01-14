@@ -2,18 +2,25 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ShoppingCart, Eye, MessageCircle } from "lucide-react";
 import { Product } from "@/data/products";
+import { useNavigate } from "react-router-dom";
 
 interface ProductCardProps {
   product: Product;
-  onViewDetails: (product: Product) => void;
+  onViewDetails?: (product: Product) => void;
 }
 
 const ProductCard = ({ product, onViewDetails }: ProductCardProps) => {
+  const navigate = useNavigate();
+
   const handleWhatsApp = () => {
     const message = encodeURIComponent(
       `Halo, saya tertarik dengan produk ${product.name}. Mohon informasi lebih lanjut.`
     );
     window.open(`https://wa.me/6281223598599?text=${message}`, '_blank');
+  };
+
+  const handleViewDetails = () => {
+    navigate(`/produk/${product.id}`);
   };
 
   return (
@@ -47,7 +54,7 @@ const ProductCard = ({ product, onViewDetails }: ProductCardProps) => {
             <Button 
               variant="secondary" 
               size="sm"
-              onClick={() => onViewDetails(product)}
+              onClick={handleViewDetails}
               className="bg-background/90 hover:bg-background"
             >
               <Eye className="w-4 h-4 mr-2" />
@@ -68,7 +75,10 @@ const ProductCard = ({ product, onViewDetails }: ProductCardProps) => {
       {/* Content */}
       <div className="p-5 lg:p-6">
         <div className="flex items-start justify-between gap-3 mb-3">
-          <h3 className="font-heading font-bold text-lg text-foreground group-hover:text-primary transition-colors line-clamp-2">
+          <h3 
+            className="font-heading font-bold text-lg text-foreground group-hover:text-primary transition-colors line-clamp-2 cursor-pointer"
+            onClick={handleViewDetails}
+          >
             {product.name}
           </h3>
         </div>

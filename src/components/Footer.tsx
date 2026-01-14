@@ -1,7 +1,15 @@
 import { Link } from "react-router-dom";
+import { MessageCircle } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <footer className="bg-foreground text-background">
@@ -18,16 +26,19 @@ const Footer = () => {
                 <span className="font-heading font-semibold text-xl text-primary ml-1">Tools</span>
               </div>
             </Link>
-            <p className="text-background/70 mb-6 max-w-md leading-relaxed">
-              Divisi penerbitan dan alat bisnis dari PT. Lentera Duta Persada. 
-              Memberikan solusi penerbitan profesional dan tools bisnis terintegrasi 
-              untuk mendukung kesuksesan Anda.
+            <p className="text-background/70 mb-4 max-w-md leading-relaxed">
+              <strong>Smart Tools for Smart Solutions</strong> - Divisi teknologi interaktif dari PT. Lentera Duta Persada. 
+              Penyedia solusi smart board, digital whiteboard, dan smart meeting tablet untuk pendidikan dan bisnis.
             </p>
+            <div className="flex flex-col gap-2 text-sm text-background/60">
+              <p><strong>Head Office:</strong> Jl. Pasirwangi No. 76, Desa Gudangkahuripan, Kec. Lembang, Kab. Bandung Barat 40391</p>
+              <p><strong>Phone:</strong> +62 812 2359 8599</p>
+            </div>
             <a 
               href="https://ldpgroup.co.id/" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-primary hover:text-accent transition-colors"
+              className="inline-flex items-center gap-2 text-primary hover:text-accent transition-colors mt-4"
             >
               Kunjungi Website Utama LDP Group
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -41,24 +52,44 @@ const Footer = () => {
             <h4 className="font-heading font-bold text-lg mb-6">Tautan Cepat</h4>
             <ul className="space-y-3">
               <li>
-                <a href="#beranda" className="text-background/70 hover:text-primary transition-colors">
+                <button 
+                  onClick={() => scrollToSection("beranda")}
+                  className="text-background/70 hover:text-primary transition-colors"
+                >
                   Beranda
-                </a>
+                </button>
               </li>
               <li>
-                <a href="#layanan" className="text-background/70 hover:text-primary transition-colors">
-                  Layanan
-                </a>
+                <button 
+                  onClick={() => scrollToSection("katalog")}
+                  className="text-background/70 hover:text-primary transition-colors"
+                >
+                  Katalog Produk
+                </button>
               </li>
               <li>
-                <a href="#tentang" className="text-background/70 hover:text-primary transition-colors">
+                <button 
+                  onClick={() => scrollToSection("fitur")}
+                  className="text-background/70 hover:text-primary transition-colors"
+                >
+                  Fitur Produk
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={() => scrollToSection("tentang")}
+                  className="text-background/70 hover:text-primary transition-colors"
+                >
                   Tentang Kami
-                </a>
+                </button>
               </li>
               <li>
-                <a href="#kontak" className="text-background/70 hover:text-primary transition-colors">
+                <button 
+                  onClick={() => scrollToSection("kontak")}
+                  className="text-background/70 hover:text-primary transition-colors"
+                >
                   Kontak
-                </a>
+                </button>
               </li>
             </ul>
           </div>
@@ -132,7 +163,7 @@ const Footer = () => {
                 </svg>
               </a>
               <a 
-                href="https://www.instagram.com/ldpgroup.id"
+                href="https://www.instagram.com/ldptoolsofficial"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-background/60 hover:text-primary transition-colors"
@@ -157,6 +188,17 @@ const Footer = () => {
           </div>
         </div>
       </div>
+
+      {/* WhatsApp Floating Button */}
+      <a 
+        href="https://wa.me/6281223598599"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 w-14 h-14 bg-[#25D366] rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform z-50"
+        aria-label="Chat on WhatsApp"
+      >
+        <MessageCircle className="w-7 h-7 text-white" />
+      </a>
     </footer>
   );
 };

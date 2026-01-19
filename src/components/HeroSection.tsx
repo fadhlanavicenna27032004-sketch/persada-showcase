@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Play, Monitor, ShoppingBag } from "lucide-react";
+import { ArrowRight, Play, ShoppingBag } from "lucide-react";
 import productShowcase from "@/assets/products/product-showcase.jpg";
 
 const HeroSection = () => {
@@ -90,30 +90,6 @@ const HeroSection = () => {
               />
             </div>
             
-            {/* Floating Cards */}
-            <div className="absolute -bottom-6 -left-6 bg-card p-4 rounded-xl shadow-lg border border-border animate-fade-up" style={{ animationDelay: "0.3s" }}>
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 gradient-primary rounded-lg flex items-center justify-center">
-                  <Monitor className="w-6 h-6 text-primary-foreground" />
-                </div>
-                <div>
-                  <p className="font-heading font-semibold text-foreground">Ukuran</p>
-                  <p className="text-sm text-muted-foreground">55" - 98"</p>
-                </div>
-              </div>
-            </div>
-            
-            <div className="absolute -top-6 -right-6 bg-card p-4 rounded-xl shadow-lg border border-border animate-fade-up" style={{ animationDelay: "0.5s" }}>
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 gradient-highlight rounded-lg flex items-center justify-center">
-                  <ShoppingBag className="w-6 h-6 text-highlight-foreground" />
-                </div>
-                <div>
-                  <p className="font-heading font-semibold text-foreground">Garansi</p>
-                  <p className="text-sm text-muted-foreground">Resmi</p>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>

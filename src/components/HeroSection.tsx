@@ -1,8 +1,20 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Play, ShoppingBag } from "lucide-react";
 import productShowcase from "@/assets/products/product-showcase.jpg";
+import { useEffect, useState } from "react";
 
 const HeroSection = () => {
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+    
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -12,16 +24,25 @@ const HeroSection = () => {
 
   return (
     <section id="beranda" className="relative min-h-screen flex items-center overflow-hidden gradient-hero">
-      {/* Background Pattern */}
+      {/* Background Pattern with Parallax */}
       <div className="absolute inset-0 opacity-30">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-primary/20 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/20 rounded-full blur-3xl" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-highlight/10 rounded-full blur-3xl" />
+        <div 
+          className="absolute top-20 left-10 w-72 h-72 bg-primary/20 rounded-full blur-3xl transition-transform duration-100"
+          style={{ transform: `translateY(${scrollY * 0.3}px) translateX(${scrollY * 0.1}px)` }}
+        />
+        <div 
+          className="absolute bottom-20 right-10 w-96 h-96 bg-accent/20 rounded-full blur-3xl transition-transform duration-100"
+          style={{ transform: `translateY(${scrollY * -0.2}px) translateX(${scrollY * -0.1}px)` }}
+        />
+        <div 
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-highlight/10 rounded-full blur-3xl transition-transform duration-100"
+          style={{ transform: `translate(-50%, -50%) scale(${1 + scrollY * 0.0003})` }}
+        />
       </div>
       
       <div className="container mx-auto px-4 md:px-6 pt-24 pb-16 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left Content */}
+          {/* Left Content with Parallax */}
           <div className="space-y-8 animate-fade-up">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full">
               <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
@@ -80,8 +101,11 @@ const HeroSection = () => {
             </div>
           </div>
           
-          {/* Right Image */}
-          <div className="relative animate-fade-in hidden lg:block">
+          {/* Right Image with Parallax */}
+          <div 
+            className="relative animate-fade-in hidden lg:block transition-transform duration-100"
+            style={{ transform: `translateY(${scrollY * -0.15}px)` }}
+          >
             <div className="relative z-10 rounded-2xl overflow-hidden shadow-lg">
               <img 
                 src={productShowcase} 

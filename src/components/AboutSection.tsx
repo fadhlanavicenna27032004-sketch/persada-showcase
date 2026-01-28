@@ -1,123 +1,87 @@
-import { CheckCircle2, Users, Award, Target, Building2, GraduationCap } from "lucide-react";
+import { Shield, Wrench, Sparkles, Monitor, Layers } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import caseStudyImage from "@/assets/products/case-study.jpg";
+import { Link } from "react-router-dom";
 
 const features = [
-  "Dukungan teknis profesional 24/7",
-  "Instalasi dan training gratis",
-  "Garansi resmi hingga 3 tahun",
-  "Spare part tersedia",
-  "Sertifikasi CE & RoHS",
-  "After-sales service terpercaya",
-];
-
-const useCases = [
-  { icon: GraduationCap, label: "Sekolah & Universitas" },
-  { icon: Building2, label: "Ruang Meeting Kantor" },
-  { icon: Users, label: "Training Center" },
+  { 
+    icon: Shield, 
+    title: "Garansi Resmi", 
+    description: "Dukungan & sparepart" 
+  },
+  { 
+    icon: Sparkles, 
+    title: "Inovasi Terbaru", 
+    description: "Teknologi all-in-one" 
+  },
+  { 
+    icon: Layers, 
+    title: "Solusi Terintegrasi", 
+    description: "Untuk kelas dan kantor" 
+  },
 ];
 
 const AboutSection = () => {
   return (
-    <section id="tentang" className="py-24 bg-background">
+    <section id="tentang" className="py-24 bg-secondary/30">
       <div className="container mx-auto px-4 md:px-6">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Left Content */}
-          <div className="space-y-8">
-            <div>
-              <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">
-                Tentang LDP Tools
-              </span>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-foreground mb-6">
-                <span className="text-gradient">Smart Tools</span> for <span className="text-gradient">Smart Solutions</span>
-              </h2>
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                LDP Tools adalah divisi dari PT. Lentera Duta Persada yang berfokus pada penyediaan 
-                solusi teknologi interaktif seperti smart board, digital whiteboard, dan smart meeting tablet 
-                untuk ruang kelas dan ruang meeting.
-              </p>
-            </div>
-
-            <p className="text-muted-foreground leading-relaxed">
-              Kami berkomitmen untuk mentransformasi cara orang berpresentasi, mengajar, dan berkolaborasi. 
-              Dengan teknologi all-in-one yang modern, kami menggantikan alat tradisional dengan solusi cerdas 
-              yang terintegrasi.
-            </p>
-
-            {/* Use Cases */}
-            <div className="flex flex-wrap gap-4">
-              {useCases.map((useCase, index) => (
-                <div 
-                  key={index}
-                  className="flex items-center gap-2 px-4 py-2 bg-secondary rounded-lg"
-                >
-                  <useCase.icon className="w-5 h-5 text-primary" />
-                  <span className="text-sm font-medium text-foreground">{useCase.label}</span>
-                </div>
-              ))}
-            </div>
-
-            {/* Features List */}
-            <div className="grid sm:grid-cols-2 gap-4">
-              {features.map((feature, index) => (
-                <div key={index} className="flex items-start gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
-                  <span className="text-foreground text-sm">{feature}</span>
-                </div>
-              ))}
-            </div>
-
-            <div className="flex flex-wrap gap-4">
-              <a href="https://ldpgroup.co.id/#about" target="_blank" rel="noopener noreferrer">
-                <Button variant="accent" size="lg">
-                  Tentang LDP Group
-                </Button>
-              </a>
-              <a href="https://wa.me/6281223598599" target="_blank" rel="noopener noreferrer">
-                <Button variant="outline" size="lg">
-                  Konsultasi Gratis
-                </Button>
-              </a>
-            </div>
+        <div className="max-w-4xl mx-auto text-center space-y-8">
+          {/* Header */}
+          <div>
+            <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">
+              Tentang Kami
+            </span>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-foreground mb-6">
+              Profil <span className="text-gradient">LDP Tools</span>
+            </h2>
           </div>
 
-          {/* Right Content */}
-          <div className="space-y-6">
-            {/* Image */}
-            <div className="relative rounded-2xl overflow-hidden shadow-lg">
-              <img 
-                src={caseStudyImage}
-                alt="LDP Tools Case Study"
-                className="w-full h-auto"
-              />
-            </div>
+          {/* Description */}
+          <div className="space-y-6 text-muted-foreground leading-relaxed">
+            <p className="text-lg">
+              Di LDP Tools, kami bersemangat untuk mengubah cara orang melakukan presentasi, mengajar, dan berkolaborasi. 
+              Sebagai divisi dari <strong className="text-foreground">PT. Lentera Duta Persada</strong>, kami mengkhususkan diri dalam menyediakan 
+              solusi teknologi interaktif mutakhir seperti papan pintar, papan tulis digital, dan tablet rapat pintar 
+              yang memberdayakan ruang kelas dan ruang pertemuan perusahaan.
+            </p>
+            <p>
+              Dengan komitmen kami terhadap inovasi dan kualitas, LDP Tools membantu para pendidik, pelatih, dan profesional 
+              untuk memberikan pengalaman yang lebih menarik, efisien, dan efektif. Solusi terintegrasi kami menggantikan 
+              alat tradisional dengan teknologi pintar modern yang serba guna.
+            </p>
+            <p className="text-primary font-medium italic">
+              "Kami percaya dalam menyederhanakan hal-hal yang kompleks, membuat komunikasi lebih jelas, 
+              kolaborasi lebih cerdas, dan pembelajaran lebih interaktif."
+            </p>
+          </div>
 
-            {/* Stats Cards */}
-            <div className="grid sm:grid-cols-3 gap-4">
-              <div className="bg-card rounded-xl p-5 shadow-sm border border-border hover:shadow-lg hover:border-primary/30 transition-all text-center">
-                <div className="w-12 h-12 gradient-primary rounded-xl flex items-center justify-center mx-auto mb-3">
-                  <Award className="w-6 h-6 text-primary-foreground" />
+          {/* Features */}
+          <div className="grid sm:grid-cols-3 gap-6 pt-8">
+            {features.map((feature, index) => (
+              <div 
+                key={index}
+                className="bg-card rounded-xl p-6 shadow-sm border border-border hover:shadow-lg hover:border-primary/30 transition-all"
+              >
+                <div className="w-14 h-14 gradient-primary rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <feature.icon className="w-7 h-7 text-primary-foreground" />
                 </div>
-                <h3 className="text-2xl font-heading font-bold text-gradient mb-1">15+</h3>
-                <p className="text-xs text-muted-foreground">Tahun Pengalaman</p>
+                <h3 className="text-lg font-heading font-bold text-foreground mb-2">{feature.title}</h3>
+                <p className="text-sm text-muted-foreground">{feature.description}</p>
               </div>
+            ))}
+          </div>
 
-              <div className="bg-card rounded-xl p-5 shadow-sm border border-border hover:shadow-lg hover:border-accent/30 transition-all text-center">
-                <div className="w-12 h-12 bg-accent rounded-xl flex items-center justify-center mx-auto mb-3">
-                  <Users className="w-6 h-6 text-accent-foreground" />
-                </div>
-                <h3 className="text-2xl font-heading font-bold text-accent mb-1">100+</h3>
-                <p className="text-xs text-muted-foreground">Klien Terpuaskan</p>
-              </div>
-
-              <div className="bg-card rounded-xl p-5 shadow-sm border border-border hover:shadow-lg hover:border-highlight/30 transition-all text-center">
-                <div className="w-12 h-12 gradient-highlight rounded-xl flex items-center justify-center mx-auto mb-3">
-                  <Target className="w-6 h-6 text-highlight-foreground" />
-                </div>
-                <h3 className="text-2xl font-heading font-bold text-highlight mb-1">500+</h3>
-                <p className="text-xs text-muted-foreground">Unit Terjual</p>
-              </div>
-            </div>
+          {/* CTA Buttons */}
+          <div className="flex flex-wrap justify-center gap-4 pt-6">
+            <a href="#produk">
+              <Button variant="accent" size="lg">
+                Lihat Katalog
+              </Button>
+            </a>
+            <a href="#kontak">
+              <Button variant="outline" size="lg">
+                Hubungi Kami
+              </Button>
+            </a>
           </div>
         </div>
       </div>

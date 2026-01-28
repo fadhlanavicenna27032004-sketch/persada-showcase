@@ -2,11 +2,72 @@ import { Mail, Phone, MapPin, Send, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useState } from "react";
+import { toast } from "@/hooks/use-toast";
 
 const ContactSection = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: ""
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const COMPANY_EMAIL = "ptlenteradutapersada@gmail.com";
+  const GOOGLE_MAPS_URL = "https://www.google.com/maps/search/?api=1&query=Komplek+Pesona+Bali+City+View+Residence+Cigugurgirang+Parongpong+Bandung+Barat+Jawa+Barat+40559+Indonesia";
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
+    
+    // Validate form
+    if (!formData.name.trim() || !formData.email.trim() || !formData.subject.trim() || !formData.message.trim()) {
+      toast({
+        title: "Form tidak lengkap",
+        description: "Mohon lengkapi semua field sebelum mengirim pesan.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      toast({
+        title: "Email tidak valid",
+        description: "Mohon masukkan alamat email yang benar.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    // Construct mailto link
+    const subject = encodeURIComponent(`[LDP Tools] ${formData.subject}`);
+    const body = encodeURIComponent(
+      `Nama: ${formData.name}\nEmail: ${formData.email}\n\nPesan:\n${formData.message}`
+    );
+    
+    const mailtoLink = `mailto:${COMPANY_EMAIL}?subject=${subject}&body=${body}`;
+    
+    // Open email client
+    window.location.href = mailtoLink;
+
+    // Reset form after short delay
+    setTimeout(() => {
+      setFormData({ name: "", email: "", subject: "", message: "" });
+      setIsSubmitting(false);
+      toast({
+        title: "Email client terbuka",
+        description: "Silakan kirim email melalui aplikasi email Anda."
+      });
+    }, 1000);
   };
 
   return (
@@ -63,18 +124,23 @@ const ContactSection = () => {
                   </div>
                 </a>
                 
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 gradient-highlight rounded-xl flex items-center justify-center flex-shrink-0">
+                <a 
+                  href={GOOGLE_MAPS_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start gap-4 group cursor-pointer"
+                >
+                  <div className="w-12 h-12 gradient-highlight rounded-xl flex items-center justify-center flex-shrink-0 group-hover:shadow-lg transition-shadow">
                     <MapPin className="w-5 h-5 text-highlight-foreground" />
                   </div>
                   <div>
-                    <p className="font-semibold text-foreground">Lokasi</p>
-                    <p className="text-muted-foreground text-sm leading-relaxed">
-                      Jl. Komplek Pesona Bali City View Residence, Desa Cigugurgirang 
+                    <p className="font-semibold text-foreground group-hover:text-highlight transition-colors">Lokasi</p>
+                    <p className="text-muted-foreground text-sm leading-relaxed group-hover:text-foreground transition-colors">
+                      Jl. Komplek Pesona Bali City View Residence, Desa Cigugurgirang, 
                       Kec. Parongpong, Kab. Bandung Barat, Jawa Barat, 40559
                     </p>
                   </div>
-                </div>
+                </a>
               </div>
             </div>
 
@@ -133,16 +199,24 @@ const ContactSection = () => {
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-foreground">Nama Lengkap</label>
                   <Input 
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
                     placeholder="Masukkan nama Anda" 
                     className="h-12 bg-background border-border focus:border-primary"
+                    maxLength={100}
                   />
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-foreground">Email</label>
                   <Input 
+                    name="email"
                     type="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
                     placeholder="email@example.com" 
                     className="h-12 bg-background border-border focus:border-primary"
+                    maxLength={255}
                   />
                 </div>
               </div>
@@ -150,22 +224,30 @@ const ContactSection = () => {
               <div className="space-y-2">
                 <label className="text-sm font-medium text-foreground">Subjek</label>
                 <Input 
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleInputChange}
                   placeholder="Topik pesan Anda" 
                   className="h-12 bg-background border-border focus:border-primary"
+                  maxLength={200}
                 />
               </div>
               
               <div className="space-y-2">
                 <label className="text-sm font-medium text-foreground">Pesan</label>
                 <Textarea 
+                  name="message"
+                  value={formData.message}
+                  onChange={handleInputChange}
                   placeholder="Tulis pesan Anda di sini..." 
                   rows={5}
                   className="bg-background border-border focus:border-primary resize-none"
+                  maxLength={1000}
                 />
               </div>
               
-              <Button type="submit" variant="hero" size="lg" className="w-full">
-                Kirim Pesan
+              <Button type="submit" variant="hero" size="lg" className="w-full" disabled={isSubmitting}>
+                {isSubmitting ? "Membuka Email..." : "Kirim Pesan"}
                 <Send className="w-5 h-5" />
               </Button>
             </form>

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X, ShoppingBag } from "lucide-react";
 import { useState } from "react";
-
+import logoLdpTools from "@/assets/logo-ldptools.jpg";
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -27,14 +27,12 @@ const Navbar = () => {
       <nav className="container mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 gradient-primary rounded-lg flex items-center justify-center shadow-md group-hover:shadow-glow transition-shadow">
-              <span className="text-primary-foreground font-heading font-bold text-lg">L</span>
-            </div>
-            <div className="hidden sm:block">
-              <span className="font-heading font-bold text-lg text-foreground">LDP</span>
-              <span className="font-heading font-semibold text-lg text-primary ml-1">Tools</span>
-            </div>
+          <Link to="/" className="flex items-center group">
+            <img 
+              src={logoLdpTools} 
+              alt="LDP Tools Logo" 
+              className="h-10 md:h-12 w-auto object-contain"
+            />
           </Link>
 
           {/* Desktop Navigation */}

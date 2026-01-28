@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { MessageCircle } from "lucide-react";
+import logoLdpTools from "@/assets/logo-ldptools.jpg";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -17,14 +18,12 @@ const Footer = () => {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <Link to="/" className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 gradient-primary rounded-xl flex items-center justify-center shadow-lg">
-                <span className="text-primary-foreground font-heading font-bold text-xl">L</span>
-              </div>
-              <div>
-                <span className="font-heading font-bold text-xl text-background">LDP</span>
-                <span className="font-heading font-semibold text-xl text-primary ml-1">Tools</span>
-              </div>
+            <Link to="/" className="flex items-center mb-6">
+              <img 
+                src={logoLdpTools} 
+                alt="LDP Tools Logo" 
+                className="h-12 w-auto object-contain brightness-0 invert"
+              />
             </Link>
             <p className="text-background/70 mb-4 max-w-md leading-relaxed">
               <strong>Smart Tools for Smart Solutions</strong> - Divisi teknologi interaktif dari PT. Lentera Duta Persada. 

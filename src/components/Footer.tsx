@@ -1,9 +1,20 @@
 import { Link } from "react-router-dom";
-import { MessageCircle } from "lucide-react";
+import { MessageCircle, ArrowUp } from "lucide-react";
 import logoLdpTools from "@/assets/logo-ldptools.png";
+import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 500);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -12,8 +23,12 @@ const Footer = () => {
     }
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
-    <footer className="bg-foreground text-background">
+    <footer className="bg-foreground text-background relative">
       <div className="container mx-auto px-4 md:px-6 py-16">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand */}
@@ -22,7 +37,7 @@ const Footer = () => {
               <img 
                 src={logoLdpTools} 
                 alt="LDP Tools Logo" 
-                className="h-14 md:h-16 w-auto object-contain"
+                className="h-14 md:h-16 w-auto object-contain brightness-0 invert"
               />
             </Link>
             <p className="text-background/70 mb-4 max-w-md leading-relaxed">
@@ -50,46 +65,19 @@ const Footer = () => {
           <div>
             <h4 className="font-heading font-bold text-lg mb-6">Tautan Cepat</h4>
             <ul className="space-y-3">
-              <li>
-                <button 
-                  onClick={() => scrollToSection("beranda")}
-                  className="text-background/70 hover:text-primary transition-colors"
-                >
-                  Beranda
-                </button>
-              </li>
-              <li>
-                <button 
-                  onClick={() => scrollToSection("katalog")}
-                  className="text-background/70 hover:text-primary transition-colors"
-                >
-                  Katalog Produk
-                </button>
-              </li>
-              <li>
-                <button 
-                  onClick={() => scrollToSection("fitur")}
-                  className="text-background/70 hover:text-primary transition-colors"
-                >
-                  Fitur Produk
-                </button>
-              </li>
-              <li>
-                <button 
-                  onClick={() => scrollToSection("tentang")}
-                  className="text-background/70 hover:text-primary transition-colors"
-                >
-                  Tentang Kami
-                </button>
-              </li>
-              <li>
-                <button 
-                  onClick={() => scrollToSection("kontak")}
-                  className="text-background/70 hover:text-primary transition-colors"
-                >
-                  Kontak
-                </button>
-              </li>
+              {["beranda", "katalog", "fitur", "tentang", "kontak"].map((item) => (
+                <li key={item}>
+                  <button 
+                    onClick={() => scrollToSection(item)}
+                    className="text-background/70 hover:text-primary transition-colors capitalize"
+                  >
+                    {item === "beranda" ? "Beranda" : 
+                     item === "katalog" ? "Katalog Produk" :
+                     item === "fitur" ? "Fitur Produk" :
+                     item === "tentang" ? "Tentang Kami" : "Kontak"}
+                  </button>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -97,46 +85,23 @@ const Footer = () => {
           <div>
             <h4 className="font-heading font-bold text-lg mb-6">Divisi LDP Group</h4>
             <ul className="space-y-3">
-              <li>
-                <a 
-                  href="https://ldpgroup.co.id/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-background/70 hover:text-primary transition-colors"
-                >
-                  LDP Training
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="http://ldpdigital.co.id/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-background/70 hover:text-primary transition-colors"
-                >
-                  LDP Digital
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="https://ldpgroup.co.id/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-background/70 hover:text-primary transition-colors"
-                >
-                  LDP Travel
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="https://ldpgroup.co.id/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-background/70 hover:text-primary transition-colors"
-                >
-                  LDP Publisher
-                </a>
-              </li>
+              {[
+                { name: "LDP Training", url: "https://ldpgroup.co.id/" },
+                { name: "LDP Digital", url: "http://ldpdigital.co.id/" },
+                { name: "LDP Travel", url: "https://ldpgroup.co.id/" },
+                { name: "LDP Publisher", url: "https://ldpgroup.co.id/" }
+              ].map((link) => (
+                <li key={link.name}>
+                  <a 
+                    href={link.url}
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-background/70 hover:text-primary transition-colors"
+                  >
+                    {link.name}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
@@ -154,7 +119,7 @@ const Footer = () => {
                 href="https://wa.me/6281223598599"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-background/60 hover:text-primary transition-colors"
+                className="text-background/60 hover:text-primary transition-colors hover:scale-110"
                 aria-label="WhatsApp"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -165,7 +130,7 @@ const Footer = () => {
                 href="https://www.instagram.com/ldptoolsofficial"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-background/60 hover:text-primary transition-colors"
+                className="text-background/60 hover:text-primary transition-colors hover:scale-110"
                 aria-label="Instagram"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -176,7 +141,7 @@ const Footer = () => {
                 href="https://www.linkedin.com/company/ldpgroup"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-background/60 hover:text-primary transition-colors"
+                className="text-background/60 hover:text-primary transition-colors hover:scale-110"
                 aria-label="LinkedIn"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -189,15 +154,33 @@ const Footer = () => {
       </div>
 
       {/* WhatsApp Floating Button */}
-      <a 
+      <motion.a 
         href="https://wa.me/6281223598599"
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 w-14 h-14 bg-[#25D366] rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform z-50"
+        className="fixed bottom-6 right-6 w-14 h-14 bg-[#25D366] rounded-full flex items-center justify-center shadow-lg z-50"
         aria-label="Chat on WhatsApp"
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.95 }}
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={{ delay: 1 }}
       >
         <MessageCircle className="w-7 h-7 text-white" />
-      </a>
+      </motion.a>
+
+      {/* Scroll to Top Button */}
+      <motion.button
+        onClick={scrollToTop}
+        className="fixed bottom-6 right-24 w-12 h-12 bg-primary rounded-full flex items-center justify-center shadow-lg z-50"
+        aria-label="Scroll to top"
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{ opacity: showScrollTop ? 1 : 0, scale: showScrollTop ? 1 : 0 }}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.95 }}
+      >
+        <ArrowUp className="w-5 h-5 text-primary-foreground" />
+      </motion.button>
     </footer>
   );
 };

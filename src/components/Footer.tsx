@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { MessageCircle } from "lucide-react";
-import logoLdpTools from "@/assets/logo-ldptools.jpg";
+import logoLdpTools from "@/assets/logo-ldptools.png";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();

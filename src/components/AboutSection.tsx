@@ -61,8 +61,8 @@ const AboutSection = () => {
                 key={index}
                 className="bg-card rounded-xl p-6 shadow-sm border border-border hover:shadow-lg hover:border-primary/30 transition-all"
               >
-                <div className="w-14 h-14 gradient-primary rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <feature.icon className="w-7 h-7 text-primary-foreground" />
+                <div className="w-14 h-14 gradient-highlight rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <feature.icon className="w-7 h-7 text-highlight-foreground" />
                 </div>
                 <h3 className="text-lg font-heading font-bold text-foreground mb-2">{feature.title}</h3>
                 <p className="text-sm text-muted-foreground">{feature.description}</p>

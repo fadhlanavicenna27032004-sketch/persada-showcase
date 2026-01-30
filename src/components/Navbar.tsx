@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X, ShoppingBag } from "lucide-react";
 import { useState } from "react";
-import logoLdpTools from "@/assets/logo-ldptools.jpg";
+import logoLdpTools from "@/assets/logo-ldptools.png";
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 

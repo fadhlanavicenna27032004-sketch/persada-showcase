@@ -9,6 +9,8 @@ import {
   Camera
 } from "lucide-react";
 import featuresImage from "@/assets/products/features.jpg";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 
 const features = [
   {
@@ -61,13 +63,74 @@ const features = [
   }
 ];
 
-const FeaturesSection = () => {
+const FeatureCard = ({ feature, index }: { feature: typeof features[0], index: number }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
+
   return (
-    <section id="fitur" className="py-24 bg-secondary/30">
-      <div className="container mx-auto px-4 md:px-6">
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 30 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      className="group relative bg-card rounded-xl p-5 border border-border hover:border-primary/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg overflow-hidden"
+    >
+      {/* Hover glow effect */}
+      <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${
+        feature.color === "primary" 
+          ? "bg-primary/5" 
+          : feature.color === "accent" 
+          ? "bg-accent/5" 
+          : "bg-highlight/5"
+      }`} />
+      
+      <div className="relative z-10">
+        <div 
+          className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110 ${
+            feature.color === "primary" 
+              ? "gradient-primary shadow-sm group-hover:glow-primary" 
+              : feature.color === "accent" 
+              ? "bg-accent shadow-sm group-hover:glow-accent" 
+              : "gradient-highlight shadow-sm group-hover:glow-highlight"
+          }`}
+        >
+          <feature.icon className="w-6 h-6 text-primary-foreground" />
+        </div>
+        
+        <h3 className="font-heading font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
+          {feature.title}
+        </h3>
+        
+        <p className="text-sm text-muted-foreground leading-relaxed">
+          {feature.description}
+        </p>
+      </div>
+    </motion.div>
+  );
+};
+
+const FeaturesSection = () => {
+  const headerRef = useRef(null);
+  const headerInView = useInView(headerRef, { once: true, margin: "-100px" });
+  const imageRef = useRef(null);
+  const imageInView = useInView(imageRef, { once: true, margin: "-100px" });
+
+  return (
+    <section id="fitur" className="py-24 bg-secondary/30 relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-gradient-to-bl from-primary/5 to-transparent rounded-bl-full" />
+      <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-gradient-to-tr from-accent/5 to-transparent rounded-tr-full" />
+      
+      <div className="container mx-auto px-4 md:px-6 relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="inline-block px-4 py-2 bg-primary/10 text-primary font-medium rounded-full text-sm mb-4">
+        <motion.div 
+          ref={headerRef}
+          initial={{ opacity: 0, y: 40 }}
+          animate={headerInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7 }}
+          className="text-center max-w-3xl mx-auto mb-16"
+        >
+          <span className="inline-block px-4 py-2 bg-primary/10 text-primary font-medium rounded-full text-sm mb-4 backdrop-blur-sm">
             Teknologi Unggulan
           </span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-foreground mb-6">
@@ -77,56 +140,49 @@ const FeaturesSection = () => {
             QEOYO Smart Board menggabungkan 7 perangkat dalam satu solusi: Proyektor, Komputer, 
             Whiteboard, TV, Kamera, Speaker, dan Mikrofon.
           </p>
-        </div>
+        </motion.div>
 
         {/* Features Grid */}
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left: Image */}
-          <div className="relative order-2 lg:order-1">
-            <div className="relative rounded-2xl overflow-hidden shadow-lg">
+          <motion.div 
+            ref={imageRef}
+            initial={{ opacity: 0, x: -50 }}
+            animate={imageInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.7 }}
+            className="relative order-2 lg:order-1"
+          >
+            {/* Glow effect */}
+            <div className="absolute -inset-4 bg-gradient-to-r from-primary/15 to-accent/15 rounded-3xl blur-2xl" />
+            
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10">
               <img 
                 src={featuresImage}
                 alt="QEOYO Smart Board Features"
                 className="w-full h-auto"
               />
+              {/* Overlay gradient */}
+              <div className="absolute inset-0 bg-gradient-to-t from-foreground/20 to-transparent" />
             </div>
             
             {/* Floating Badge */}
-            <div className="absolute -bottom-4 -right-4 bg-card rounded-xl p-4 shadow-lg border border-border">
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={imageInView ? { opacity: 1, scale: 1 } : {}}
+              transition={{ duration: 0.5, delay: 0.5 }}
+              className="absolute -bottom-6 -right-6 bg-card/90 backdrop-blur-xl rounded-2xl p-5 shadow-xl border border-border/50"
+            >
               <div className="text-center">
-                <p className="text-3xl font-heading font-bold text-gradient">7-in-1</p>
+                <p className="text-4xl font-heading font-bold text-gradient">7-in-1</p>
                 <p className="text-sm text-muted-foreground">Integration</p>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {/* Right: Features */}
           <div className="order-1 lg:order-2 grid sm:grid-cols-2 gap-4">
             {features.map((feature, index) => (
-              <div
-                key={index}
-                className="group bg-card rounded-xl p-5 border border-border hover:border-primary/30 hover:shadow-md transition-all duration-300"
-              >
-                <div 
-                  className={`w-10 h-10 rounded-lg flex items-center justify-center mb-4 ${
-                    feature.color === "primary" 
-                      ? "gradient-primary" 
-                      : feature.color === "accent" 
-                      ? "bg-accent" 
-                      : "gradient-highlight"
-                  }`}
-                >
-                  <feature.icon className="w-5 h-5 text-primary-foreground" />
-                </div>
-                
-                <h3 className="font-heading font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
-                  {feature.title}
-                </h3>
-                
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  {feature.description}
-                </p>
-              </div>
+              <FeatureCard key={index} feature={feature} index={index} />
             ))}
           </div>
         </div>

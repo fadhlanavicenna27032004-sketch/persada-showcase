@@ -10,9 +10,10 @@ const AnimatedCounter = ({ value, className = "" }: AnimatedCounterProps) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
   
-  // Extract number from value (e.g., "4K" -> 4, "20" -> 20, "7-in-1" -> 7)
-  const numericValue = parseInt(value.replace(/[^0-9]/g, '')) || 0;
-  const suffix = value.replace(/[0-9]/g, '');
+  // Extract first number from value (e.g., "4K" -> 4, "20" -> 20, "7-in-1" -> 7)
+  const match = value.match(/^(\d+)/);
+  const numericValue = match ? parseInt(match[1]) : 0;
+  const suffix = match ? value.slice(match[1].length) : value;
   
   const spring = useSpring(0, { 
     mass: 0.8, 

@@ -193,23 +193,6 @@ const HeroSection = () => {
               />
             </div>
             
-            {/* Floating badge */}
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.8 }}
-              className="absolute -bottom-6 -left-6 bg-card/90 backdrop-blur-xl rounded-2xl p-5 shadow-xl border border-border/50"
-            >
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 gradient-highlight rounded-xl flex items-center justify-center">
-                  <Sparkles className="w-6 h-6 text-highlight-foreground" />
-                </div>
-                <div>
-                  <p className="font-heading font-bold text-foreground">Best Seller</p>
-                  <p className="text-sm text-muted-foreground">2024 Series</p>
-                </div>
-              </div>
-            </motion.div>
           </motion.div>
         </div>
       </div>
